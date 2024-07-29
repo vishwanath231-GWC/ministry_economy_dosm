@@ -8,14 +8,14 @@ const Navigation = ({ backLink }) => {
       <div className="w-fit flex items-center text-sm">
         <Link
           to="/"
-          className="flex items-center shadow-sm rounded p-2 border border-gray-200 bg-gray-200"
+          className="flex items-center shadow-lg rounded border border-[#0E6EC5] p-2 bg-white"
         >
           <GoHome />
           <div className="ml-2 text-medium">Home</div>
         </Link>
         <Link
           to={backLink}
-          className="flex items-center shadow-sm border border-gray-200 rounded p-2 ml-3"
+          className="flex items-center shadow-lg border border-[#0E6EC5] rounded p-2 ml-3 bg-white"
         >
           <IoChevronBackOutline />
           <div className="ml-2 text-medium">Back</div>
