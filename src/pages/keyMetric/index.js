@@ -13,7 +13,7 @@ const KeyMetric = () => {
   return (
     <div>
       <div className="key_metric_bg">
-        <div className="max-w-screen-xl mx-auto my-0 py-6">
+        <div className="max-w-screen-xl mx-auto my-0 py-6 px-5">
           <div className="mb-6">
             <Navigation backLink={"/"} />
           </div>
@@ -24,7 +24,10 @@ const KeyMetric = () => {
           <div className="grid grid-cols-3 mt-6">
             <div className="col-span-2">
               <div className="grid grid-cols-2 gap-5">
-                <Link className="flex bg-white shadow-md border border-gray-100 rounded p-5">
+                <Link
+                  to="/inbound-tourisom"
+                  className="flex bg-white shadow-md border border-gray-100 rounded p-5"
+                >
                   <div>
                     <TbWorld className="text-3xl text-[#FFBC2F]" />
                   </div>
