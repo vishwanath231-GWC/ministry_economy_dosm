@@ -4,6 +4,11 @@ import HomePage from "./pages/homepage";
 import CardPage from "./pages/cardPage";
 import KeyMetric from "./pages/keyMetric";
 import InboundTourisom from "./pages/Inbound_tourism";
+import InboundTimeSeries from "./pages/Inbound_time_series";
+import OutboundTourism from "./pages/outbound_tourism";
+import OutboundTimeSeries from "./pages/outbound_time_series";
+import DomesticTourism from "./pages/domestic_tourism";
+import DomesticTimeSeries from "./pages/domestic_time_series";
 const App = () => {
   return (
     <HashRouter>
@@ -12,6 +17,11 @@ const App = () => {
         <Route path="/card" element={<CardPage />} />
         <Route path="/key-metric" element={<KeyMetric />} />
         <Route path="/inbound-tourisom" element={<InboundTourisom />} />
+        <Route path="/inbound-time-series" element={<InboundTimeSeries />} />
+        <Route path="/outbound-tourism" element={<OutboundTourism />} />
+        <Route path="/outbound-time-series" element={<OutboundTimeSeries />} />
+        <Route path="/domestic-tourism" element={<DomesticTourism />} />
+        <Route path="/domestic-time-series" element={<DomesticTimeSeries />} />
       </Routes>
     </HashRouter>
   );
