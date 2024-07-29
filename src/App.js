@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Chart from "react-apexcharts";
 
 const App = () => {
-
   const [options] = useState({
     chart: {
       id: "basic-bar",
