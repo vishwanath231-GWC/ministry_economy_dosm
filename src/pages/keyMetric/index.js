@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style.css";
 import { TbWorld } from "react-icons/tb";
 import { IoIosArrowRoundUp } from "react-icons/io";
@@ -8,8 +8,20 @@ import { IoCarSportOutline, IoBarChartOutline } from "react-icons/io5";
 import { VscOrganization } from "react-icons/vsc";
 import { BiCoinStack } from "react-icons/bi";
 import Navigation from "../../components/Navigation";
+import domo from "ryuu.js";
 
 const KeyMetric = () => {
+  useEffect(() => {
+    domo
+      .get("/data/v1/tourism_satellite")
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <div>
       <div className="key_metric_bg">
