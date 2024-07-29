@@ -52,7 +52,10 @@ const KeyMetric = () => {
                     <div className="text-medium text-md">Inbound Tourism Expenditure</div>
                   </div>
                 </Link>
-                <Link className="flex bg-white shadow-md border border-gray-100 rounded p-5">
+                <Link
+                  to="/outbound-tourism"
+                  className="flex bg-white shadow-md border border-gray-100 rounded p-5"
+                >
                   <div>
                     <LuPlane className="text-3xl text-[#FFBC2F]" />
                   </div>
@@ -65,7 +68,10 @@ const KeyMetric = () => {
                     <div className="text-medium text-md">Outbound Tourism Expenditure</div>
                   </div>
                 </Link>
-                <Link className="flex bg-white shadow-md border border-gray-100 rounded p-5">
+                <Link
+                  to="/domestic-tourism"
+                  className="flex bg-white shadow-md border border-gray-100 rounded p-5"
+                >
                   <div>
                     <IoCarSportOutline className="text-3xl text-[#FFBC2F]" />
                   </div>

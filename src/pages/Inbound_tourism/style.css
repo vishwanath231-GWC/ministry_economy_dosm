@@ -7,3 +7,9 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+.apexcharts-xaxis-label {
+  white-space: normal; /* Allow text to break and wrap */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
