@@ -3,15 +3,15 @@ import Navigation from "../../components/Navigation";
 import Chart from "react-apexcharts";
 import domo from "ryuu.js";
 
-const EmploymentTime = () => {
+const TourismDirect = () => {
   const [data, setData] = useState([]);
-  const [industries, setIndustries] = useState([]);
-  const [selectedIndustry, setSelectedIndustry] = useState("All");
+  const [timeSeriesOptions, setTimeSeriesOptions] = useState([]);
+  const [selectedTimeSeries, setSelectedTimeSeries] = useState("Gross Domestic Product (GDP)");
   const [chartData, setChartData] = useState({
     categories: [],
     series: [
       {
-        name: "Employment",
+        name: "Value",
         type: "column",
         data: [],
       },
@@ -25,24 +25,27 @@ const EmploymentTime = () => {
 
   useEffect(() => {
     domo
-      .get("/data/v1/time_series_employment")
+      .get("/data/v1/time_series")
       .then((response) => {
-        const industrySet = new Set(response.map((item) => item.INDUSTRY));
-        setIndustries(["All", ...industrySet]);
+        const timeSeriesSet = new Set(
+          response.map((item) => item["Time Series of key Statistics"]),
+        );
+        setTimeSeriesOptions(Array.from(timeSeriesSet));
         setData(response);
-        processChartData(response, "All");
+        processChartData(response, "Gross Domestic Product (GDP)");
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  const processChartData = (data, industry) => {
-    const filteredData =
-      industry === "All" ? data : data.filter((item) => item.INDUSTRY === industry);
+  const processChartData = (data, timeSeries) => {
+    const filteredData = data.filter(
+      (item) => item["Time Series of key Statistics"] === timeSeries,
+    );
     const yearlyData = filteredData.reduce((acc, item) => {
-      if (!acc[item.YEAR]) acc[item.YEAR] = 0;
-      acc[item.YEAR] += item["People(thousands)"];
+      if (!acc[item.Year]) acc[item.Year] = 0;
+      acc[item.Year] += item["Value(M)"];
       return acc;
     }, {});
     const categories = Object.keys(yearlyData).map((year) => parseInt(year));
@@ -55,7 +58,7 @@ const EmploymentTime = () => {
       categories,
       series: [
         {
-          name: "Employment",
+          name: "Value",
           type: "column",
           data: seriesData,
         },
@@ -68,9 +71,9 @@ const EmploymentTime = () => {
     });
   };
 
-  const handleIndustryChange = (event) => {
+  const handleTimeSeriesChange = (event) => {
     const selected = event.target.value;
-    setSelectedIndustry(selected);
+    setSelectedTimeSeries(selected);
     processChartData(data, selected);
   };
 
@@ -87,29 +90,33 @@ const EmploymentTime = () => {
       enabled: true,
       enabledOnSeries: [1],
     },
-    labels: chartData.categories,
+    xaxis: {
+      categories: chartData.categories,
+      title: {
+        text: "Year",
+      },
+    },
     yaxis: [
       {
         labels: {
           show: false,
+          formatter: (val) => `${val}`,
         },
         title: {
-          text: "Employment (thousands)",
+          text: "Value",
         },
       },
       {
         opposite: true,
         labels: {
           show: false,
+          formatter: (val) => `${val}%`,
         },
         title: {
           text: "Percentage Difference",
         },
       },
     ],
-    xaxis: {
-      categories: chartData.categories,
-    },
   };
 
   return (
@@ -117,10 +124,10 @@ const EmploymentTime = () => {
       <div className="inbound_tourism_bg">
         <div className="max-w-screen-xl mx-auto my-0 py-6 px-5">
           <div className="mb-6">
-            <Navigation backLink="/employment" />
+            <Navigation backLink="/key-metric" />
           </div>
           <div>
-            <h2 className="uppercase text-xl font-bold">tourism satellite account</h2>
+            <h2 className="uppercase text-xl font-bold">Tourism Satellite Account</h2>
             <h5 className="uppercase text-sm font-medium">Employment in the Tourism Industry</h5>
           </div>
           <div className="grid grid-cols-2 mt-6">
@@ -135,13 +142,13 @@ const EmploymentTime = () => {
             </div>
             <div>
               <select
-                value={selectedIndustry}
-                onChange={handleIndustryChange}
+                value={selectedTimeSeries}
+                onChange={handleTimeSeriesChange}
                 className="border p-2 ml-10"
               >
-                {industries.map((industry) => (
-                  <option key={industry} value={industry}>
-                    {industry}
+                {timeSeriesOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
                   </option>
                 ))}
               </select>
@@ -153,4 +160,4 @@ const EmploymentTime = () => {
   );
 };
 
-export default EmploymentTime;
+export default TourismDirect;

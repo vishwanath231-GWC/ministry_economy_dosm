@@ -6,6 +6,7 @@ import KeyMetric from "./pages/keyMetric";
 import InboundTourisom from "./pages/Inbound_tourism";
 import Employment from "./pages/employment";
 import EmploymentTime from "./pages/employmentTime";
+import TourismDirect from "./pages/tourismDirect";
 const App = () => {
   return (
     <HashRouter>
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/inbound-tourisom" element={<InboundTourisom />} />
         <Route path="/employment" element={<Employment />} />
         <Route path="/employment-time" element={<EmploymentTime />} />
+        <Route path="/tourism-direct" element={<TourismDirect />} />
       </Routes>
     </HashRouter>
   );
