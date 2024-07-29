@@ -1,28 +1,20 @@
-import React, { useState } from "react";
-import Chart from "react-apexcharts";
-
+import React from "react";
+import { HashRouter, Routes, Route } from "react-router-dom";
+import HomePage from "./pages/homepage";
+import CardPage from "./pages/cardPage";
+import KeyMetric from "./pages/keyMetric";
 const App = () => {
-  const [options] = useState({
-    chart: {
-      id: "basic-bar",
-    },
-    xaxis: {
-      categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
-    },
-  });
-
-  const [series] = useState([
-    {
-      name: "series-1",
-      data: [30, 40, 45, 50, 49, 60, 70, 91],
-    },
-  ]);
 
   return (
-    <div>
-      <h2>Hello world!</h2>
-      <Chart options={options} series={series} type="bar" width="500" />
-    </div>
+
+    <HashRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/card" element={<CardPage />} />
+        <Route path="/key-metric" element={<KeyMetric />} />
+      </Routes>
+    </HashRouter>
+    
   );
 };
 
