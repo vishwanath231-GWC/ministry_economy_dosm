@@ -116,7 +116,10 @@ const KeyMetric = () => {
                     <div className="text-medium text-md">Employment in Tourism Industry</div>
                   </div>
                 </Link>
-                <Link className="flex bg-white shadow-md border border-gray-100 rounded p-5">
+                <Link
+                  to="/gross-value"
+                  className="flex bg-white shadow-md border border-gray-100 rounded p-5"
+                >
                   <div>
                     <BiCoinStack className="text-3xl text-[#FFBC2F]" />
                   </div>
