@@ -122,7 +122,7 @@ const DomesticTourismHomePage = () => {
                 <div className="font-bold">171.6</div>
                 <div className="flex items-center ml-3">
                   <IoIosArrowRoundUp className="text-green-700" />
-                  <div className="text-medium">160%</div>
+                  <div className="text-medium">160.1%</div>
                 </div>
               </div>
             </div>
@@ -131,10 +131,10 @@ const DomesticTourismHomePage = () => {
             <div>
               <div className="font-medium">Number of trips (Million)</div>
               <div className="flex items-center">
-                <div className="font-bold">171.6</div>
+                <div className="font-bold">207.8</div>
                 <div className="flex items-center ml-3">
                   <IoIosArrowRoundUp className="text-green-700" />
-                  <div className="text-medium">160%</div>
+                  <div className="text-medium">187.0%</div>
                 </div>
               </div>
             </div>
@@ -143,10 +143,10 @@ const DomesticTourismHomePage = () => {
             <div>
               <div className="font-medium">Total Expenditure (Million)</div>
               <div className="flex items-center">
-                <div className="font-bold">171.6</div>
+                <div className="font-bold">64.1</div>
                 <div className="flex items-center ml-3">
                   <IoIosArrowRoundUp className="text-green-700" />
-                  <div className="text-medium">160%</div>
+                  <div className="text-medium">248.1%</div>
                 </div>
               </div>
             </div>
