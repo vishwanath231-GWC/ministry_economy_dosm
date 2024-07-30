@@ -20,6 +20,16 @@
             "dataSetId": "9b0999ea-c129-4abf-8dd0-117a00715ec8",
             "alias": "time_series_employment",
             "fields":[]
+        },
+        {
+            "dataSetId": "9631bec3-a5e5-429e-b779-00cada48df3a",
+            "alias": "gv_supply",
+            "fields":[]
+        },
+        {
+            "dataSetId": "5473c0fa-9c9d-4e88-9367-d93ac56096c5",
+            "alias": "gv_ratio",
+            "fields":[]
         }
     ],
     "id": "e58d0425-fec9-43ed-bbd1-1ef6b9ade69c",
