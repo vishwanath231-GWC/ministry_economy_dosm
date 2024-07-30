@@ -5,9 +5,10 @@ import Chart from "react-apexcharts";
 import domo from "ryuu.js";
 import { Link } from "react-router-dom";
 
-const InboundTourisom = () => {
+const InboundTourism = () => {
   const [yearList, setYearList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [data, setData] = useState({});
   const [chartOptions, setChartOptions] = useState({
     chart: {
@@ -23,7 +24,6 @@ const InboundTourisom = () => {
           fontSize: "12px", // Adjust the font size as needed
           cssClass: "apexcharts-xaxis-label",
         },
-        // Ensure that long words break and wrap
       },
     },
     yaxis: {
@@ -44,7 +44,7 @@ const InboundTourisom = () => {
   });
   const [chartSeries, setChartSeries] = useState([
     {
-      name: "Expenditure",
+      name: "Converted Million (%)",
       data: [],
     },
   ]);
@@ -53,42 +53,50 @@ const InboundTourisom = () => {
     domo
       .get("/data/v1/tourism_satellite")
       .then((data) => {
-        const uniqueYears = [...new Set(data.map((item) => item.Year))];
-        const uniqueCategories = [...new Set(data.map((item) => item.Category))];
+        // Filter data with "FLAG": "Inbound Tourism Expenditure"
+        const filtered = data.filter((item) => item.FLAG === "Inbound Tourism Expenditure");
+
+        const uniqueYears = [...new Set(filtered.map((item) => item.Year))];
+        const uniqueCategories = [...new Set(filtered.map((item) => item.Category))];
         setYearList(uniqueYears);
         setCategoryList(uniqueCategories);
+        setFilteredData(filtered);
 
-        // Calculate the total expenditure by product
-        const expenditureByProduct = data.reduce((acc, item) => {
-          const product = item.Product;
-          const expenditure = item["Expenditure(M)"];
-          if (!acc[product]) {
-            acc[product] = 0;
-          }
-          acc[product] += expenditure;
-          return acc;
-        }, {});
-
-        // Calculate the total sum of all expenditures
-        const totalSum = Object.values(expenditureByProduct).reduce((sum, value) => sum + value, 0);
-
-        // Convert expenditure values to percentages
-        const percentageData = Object.fromEntries(
-          Object.entries(expenditureByProduct)
-            .map(([product, expenditure]) => [
-              product,
-              ((expenditure / totalSum) * 100).toFixed(2), // Calculate percentage
-            ])
-            .sort((a, b) => parseFloat(b[1]) - parseFloat(a[1])),
-        );
-
-        setData(percentageData);
+        processData(filtered);
       })
       .catch((err) => {
         // eslint-disable-next-line no-console
         console.log(err);
       });
   }, []);
+
+  const processData = (data) => {
+    // Calculate the total converted million by product
+    const convertedByProduct = data.reduce((acc, item) => {
+      const product = item.Product;
+      const converted = item["converted million"];
+      if (!acc[product]) {
+        acc[product] = 0;
+      }
+      acc[product] += converted;
+      return acc;
+    }, {});
+
+    // Calculate the total sum of all converted values
+    const totalSum = Object.values(convertedByProduct).reduce((sum, value) => sum + value, 0);
+
+    // Convert values to percentages
+    const percentageData = Object.fromEntries(
+      Object.entries(convertedByProduct)
+        .map(([product, converted]) => [
+          product,
+          ((converted / totalSum) * 100).toFixed(1), // Calculate percentage
+        ])
+        .sort((a, b) => parseFloat(b[1]) - parseFloat(a[1])), // Sort in descending order
+    );
+
+    setData(percentageData);
+  };
 
   useEffect(() => {
     // Update chart options and series whenever data changes
@@ -102,11 +110,23 @@ const InboundTourisom = () => {
 
     setChartSeries([
       {
-        name: "Expenditure",
+        name: "Converted Million (%)",
         data: Object.values(data),
       },
     ]);
   }, [data]);
+
+  const handleFilterChange = (filterType, value) => {
+    let filtered = filteredData;
+
+    if (filterType === "year") {
+      filtered = filteredData.filter((item) => item.Year === parseInt(value));
+    } else if (filterType === "category") {
+      filtered = filteredData.filter((item) => item.Category === value);
+    }
+
+    processData(filtered);
+  };
 
   return (
     <div>
@@ -135,7 +155,12 @@ const InboundTourisom = () => {
               <div className="max-w-sm mx-auto text-sm my-0 bg-white shadow-md rounded p-5">
                 <div className="flex flex-col">
                   <label className="font-bold mb-2">Year</label>
-                  <select id="year" name="year" className="border border-gray-300 rounded p-2">
+                  <select
+                    id="year"
+                    name="year"
+                    className="border border-gray-300 rounded p-2"
+                    onChange={(e) => handleFilterChange("year", e.target.value)}
+                  >
                     <option value="">Select Year</option>
                     {yearList.map((year, index) => (
                       <option value={year} key={index}>
@@ -146,7 +171,12 @@ const InboundTourisom = () => {
                 </div>
                 <div className="flex flex-col mt-5">
                   <label className="font-bold mb-2">Category</label>
-                  <select id="year" name="year" className="border border-gray-300 rounded p-2">
+                  <select
+                    id="category"
+                    name="category"
+                    className="border border-gray-300 rounded p-2"
+                    onChange={(e) => handleFilterChange("category", e.target.value)}
+                  >
                     <option value="">Select Category</option>
                     {categoryList
                       .filter((category) => category !== "")
@@ -172,4 +202,4 @@ const InboundTourisom = () => {
   );
 };
 
-export default InboundTourisom;
+export default InboundTourism;
