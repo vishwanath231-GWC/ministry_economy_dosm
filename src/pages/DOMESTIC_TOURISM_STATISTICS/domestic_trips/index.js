@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navigation from "../../../components/Navigation";
 import Chart from "react-apexcharts";
 import domo from "ryuu.js";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import "./style.css";
 // import { color } from "highcharts";
 
@@ -26,6 +26,7 @@ const DomesticTrips = () => {
         processChartData(response, "2022");
       })
       .catch((err) => {
+        // eslint-disable-next-line no-console
         console.log(err);
       });
   }, []);
@@ -64,24 +65,15 @@ const DomesticTrips = () => {
     processChartData(data, year);
   };
 
-  const pieOptions = (title) => ({
+  const pieOptions = () => ({
     labels: ["Same Day Trips", "Overnight Trips"],
-    title: {
-      text: title,
-      align: "center",
-      style: {
-        fontSize: "16px",
-        fontWeight: "bold",
-        color: "#fff",
-      },
-    },
     dataLabels: {
       enabled: true,
       formatter: (val) => `${val.toFixed(2)}%`,
     },
+    colors: ["#327EB8", "#FFBC2F"],
     legend: {
-      enabled: false,
-      position: "bottom",
+      show: false,
     },
   });
 
@@ -92,68 +84,66 @@ const DomesticTrips = () => {
           <div className="mb-6">
             <Navigation backLink="/domestic-tourism-homepage" />
           </div>
-          <div className="text-white">
-            <h2 className="uppercase text-xl font-bold">domestic tourism statistics </h2>
-            <h5 className="uppercase text-sm font-medium">Number of trips in {selectedYear}</h5>
+          <div className="flex justify-between items-center">
+            <div className="text-white">
+              <h2 className="uppercase text-xl font-bold">domestic tourism statistics </h2>
+              <h5 className="uppercase text-sm font-medium">Number of trips in {selectedYear}</h5>
+            </div>
+            <div>
+              <select
+                value={selectedYear}
+                onChange={handleYearChange}
+                className="border border-gray-300 rounded p-2"
+              >
+                <option value="">Select Year</option>
+                {years.map((year, index) => (
+                  <option value={year} key={index}>
+                    {year}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
-          <div className="grid grid-cols-2 gap-4 mt-10">
-            <div className="grid grid-cols-2">
+          <div className="grid grid-cols-4 gap-4 mt-10">
+            <div style={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }}>
+              <div className="my-4 text-center font-bold text-black">Individual Trips</div>
               <Chart
-                options={pieOptions("Individual Trips")}
+                options={pieOptions}
                 series={individualData.series}
                 type="pie"
                 height="350px"
               />
+            </div>
+            <div style={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }}>
+              <div className="my-4 text-center font-bold text-black">With Family Trips</div>
+              <Chart options={pieOptions} series={familyData.series} type="pie" height="350px" />
+            </div>
+            <div style={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }}>
+              <div className="my-4 text-center font-bold text-black">Total Trips</div>
               <Chart
-                options={pieOptions("With Family Trips")}
-                series={familyData.series}
-                type="pie"
-                height="350px"
-              />
-              <Chart
-                options={pieOptions("Total Trips")}
+                options={pieOptions}
                 series={[sameDayTrips, overnightTrips]}
                 type="donut"
                 height="350px"
               />
             </div>
-            <div>
-              <div className="max-w-sm mx-auto text-sm my-0 bg-white shadow-md rounded p-5">
-                <div className="grid grid-cols-3 gap-4 mt-5">
-                  <div className="shadow-sm p-4 border border-gray-200 rounded">
-                    <div className="font-medium">Same Day</div>
-                    <div className="mt-1 font-bold">{sameDayTrips.toLocaleString()}</div>
-                  </div>
-                  <div className="shadow-sm p-4 border border-gray-200 rounded">
-                    <div className="font-medium">Over night</div>
-                    <div className="mt-1 font-bold">{overnightTrips.toLocaleString()}</div>
-                  </div>
-                  <div className="shadow-sm p-4 border border-gray-200 rounded">
-                    <div className="font-medium">Total</div>
-                    <div className="mt-1 font-bold">{totalTrips.toLocaleString()}</div>
-                  </div>
+
+            <div
+              style={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }}
+              className="bg-white p-4 rounded"
+            >
+              <div className="grid grid-cols-1 gap-4">
+                <div className="shadow-sm p-4 border border-gray-200 rounded">
+                  <div className="font-medium">Same Day</div>
+                  <div className="mt-1 font-bold">{sameDayTrips.toLocaleString()}</div>
                 </div>
-                <div className="flex flex-col">
-                  <label className="font-bold mb-2">Select Year</label>
-                  <select
-                    value={selectedYear}
-                    onChange={handleYearChange}
-                    className="border border-gray-300 rounded p-2"
-                  >
-                    {years.map((year, index) => (
-                      <option value={year} key={index}>
-                        {year}
-                      </option>
-                    ))}
-                  </select>
+                <div className="shadow-sm p-4 border border-gray-200 rounded">
+                  <div className="font-medium">Over night</div>
+                  <div className="mt-1 font-bold">{overnightTrips.toLocaleString()}</div>
                 </div>
-                <div className="flex flex-col mt-5">
-                  <Link
-                    // to="/inbound-time-series"
-                    className="bg-[#0E6EC5] text-white rounded p-2 block w-fit"
-                  >
-                    Time Series
-                  </Link>
+                <div className="shadow-sm p-4 border border-gray-200 rounded">
+                  <div className="font-medium">Total</div>
+                  <div className="mt-1 font-bold">{totalTrips.toLocaleString()}</div>
                 </div>
               </div>
             </div>

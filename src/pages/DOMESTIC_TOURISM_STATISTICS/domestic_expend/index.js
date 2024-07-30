@@ -54,6 +54,9 @@ const DomesticExpend = () => {
     chart: {
       type: "bar",
       height: 550,
+      toolbar: {
+        show: false,
+      },
     },
     plotOptions: {
       bar: {
@@ -64,17 +67,17 @@ const DomesticExpend = () => {
       },
     },
     dataLabels: {
-      enabled: true,
+      enabled: false,
       formatter: (val) => `${val}%`,
       style: {
-        colors: ["#FFFFFF"], // Change data label text color to white
+        colors: ["#000000"], // Change data label text color to white
       },
     },
     xaxis: {
       categories: barChartOptions.categories,
       labels: {
         style: {
-          colors: "#FFFFFF", // Change x-axis text color to white
+          colors: "#000000", // Change x-axis text color to white
         },
       },
       axisBorder: {
@@ -107,14 +110,30 @@ const DomesticExpend = () => {
           <div className="mb-6">
             <Navigation backLink="/domestic-tourism-homepage" />
           </div>
-          <div className="text-white">
-            <h2 className="uppercase text-xl font-bold">domestic tourism statistics </h2>
-            <h5 className="uppercase text-sm font-medium">
-              Domestic Visitors Expenditure by Component in {selectedYear}
-            </h5>
+          <div className="flex justify-between items-center">
+            <div className="text-white">
+              <h2 className="uppercase text-xl font-bold">domestic tourism statistics </h2>
+              <h5 className="uppercase text-sm font-medium">
+                Domestic Visitors Expenditure by Component in {selectedYear}
+              </h5>
+            </div>
+            <select
+              value={selectedYear}
+              onChange={handleYearChange}
+              className="border border-gray-300 rounded p-2"
+            >
+              {years.map((year, index) => (
+                <option value={year} key={index}>
+                  {year}
+                </option>
+              ))}
+            </select>
           </div>
-          <div className="grid grid-cols-2 gap-4 mt-10">
-            <div className="flex w-[100%]">
+          <div className="max-w-screen-sm mx-auto mt-10">
+            <div
+              style={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }}
+              className="flex w-[100%] rounded"
+            >
               <Chart
                 options={barOptions}
                 series={barChartOptions.series}
@@ -122,40 +141,6 @@ const DomesticExpend = () => {
                 height="370px"
                 width="600px"
               />
-            </div>
-            <div>
-              <div className="max-w-sm mx-auto text-sm my-0 bg-white shadow-md rounded p-5">
-                <div className="flex flex-col">
-                  <label className="font-bold mb-2">Select Year</label>
-                  <select
-                    value={selectedYear}
-                    onChange={handleYearChange}
-                    className="border border-gray-300 rounded p-2"
-                  >
-                    {years.map((year, index) => (
-                      <option value={year} key={index}>
-                        {year}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                {/* <div className="flex flex-col mt-5">
-                  <Link
-                    to="/inbound-time-series"
-                    className="bg-[#0E6EC5] text-white rounded p-2 block w-fit"
-                  >
-                    By components - Time Series
-                  </Link>
-                </div>
-                <div className="flex flex-col mt-5">
-                  <Link
-                    to="/inbound-time-series"
-                    className="bg-[#0E6EC5] text-white rounded p-2 block w-fit"
-                  >
-                    By Trips - Time Series
-                  </Link>
-                </div> */}
-              </div>
             </div>
           </div>
         </div>
