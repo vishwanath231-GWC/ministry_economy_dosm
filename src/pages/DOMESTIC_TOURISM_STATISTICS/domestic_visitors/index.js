@@ -175,7 +175,9 @@ const DomesticVisitors = () => {
           <div className="grid grid-cols-3 gap-4 mt-3">
             <div className="flex">
               <div style={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }} className="p-4 rounded">
-                <div className="font-bold">Most Visited State by Domestic Visitor (`000), 2022</div>
+                <div className="font-bold">
+                  Most Visited State by Domestic Visitor (`000), {selectedYear}
+                </div>
                 <Chart
                   options={barOptions}
                   series={barChartOptions.series}
