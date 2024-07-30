@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navigation from "../../../components/Navigation";
 import Chart from "react-apexcharts";
 import domo from "ryuu.js";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import "./style.css";
 
 const DomesticVisitors = () => {
@@ -86,6 +86,9 @@ const DomesticVisitors = () => {
     chart: {
       type: "bar",
       height: 350,
+      toolbar: {
+        show: false,
+      },
     },
     plotOptions: {
       bar: {
@@ -96,7 +99,7 @@ const DomesticVisitors = () => {
       },
     },
     dataLabels: {
-      enabled: true,
+      enabled: false,
       formatter: (val) => `${val}`,
     },
     xaxis: {
@@ -114,7 +117,7 @@ const DomesticVisitors = () => {
     yaxis: {
       labels: {
         style: {
-          colors: "#FFFFFF", // Change x-axis text color to white
+          colors: "#000000", // Change x-axis text color to white
         },
       },
       axisBorder: {
@@ -132,6 +135,9 @@ const DomesticVisitors = () => {
   const pieOptions = {
     chart: {
       type: "donut", // Change to donut
+      toolbar: {
+        show: false,
+      },
     },
     labels: pieChartOptions.labels,
     plotOptions: {
@@ -144,6 +150,7 @@ const DomesticVisitors = () => {
     legend: {
       show: false,
     },
+    colors: ["#327EB8", "#FFBC2F"],
   };
 
   return (
@@ -157,24 +164,32 @@ const DomesticVisitors = () => {
             <h2 className="uppercase text-xl font-bold">domestic tourism statistics </h2>
             <h5 className="uppercase text-sm font-medium">snapshot performance {selectedYear}</h5>
           </div>
-          <div className="grid grid-cols-2 gap-4 mt-10">
+          <div className="grid grid-cols-3 gap-4 mt-3">
             <div className="flex">
-              <Chart
-                options={barOptions}
-                series={barChartOptions.series}
-                type="bar"
-                height="350px"
-              />
-              <Chart
-                options={pieOptions}
-                series={pieChartOptions.series}
-                type="donut" // Change to donut
-                height="350px"
-              />
+              <div style={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }} className="p-4 rounded">
+                <div className="font-bold">Most Visited State by Domestic Visitor (`000), 2022</div>
+                <Chart
+                  options={barOptions}
+                  series={barChartOptions.series}
+                  type="bar"
+                  height="350px"
+                />
+              </div>
+            </div>
+            <div>
+              <div style={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }} className="p-4 rounded">
+                <div className="font-bold">Percentage Share</div>
+                <Chart
+                  options={pieOptions}
+                  series={pieChartOptions.series}
+                  type="donut" // Change to donut
+                  height="350px"
+                />
+              </div>
             </div>
             <div>
               <div className="max-w-sm mx-auto text-sm my-0 bg-white shadow-md rounded p-5">
-                <div className="grid grid-cols-2 gap-4 mt-5">
+                <div className="grid grid-cols-2 gap-4">
                   <div className="shadow-sm p-4 border border-gray-200 rounded">
                     <div className="font-medium">Excursionist</div>
                     <div className="mt-1 font-bold">{excursionistValue}</div>
@@ -198,22 +213,16 @@ const DomesticVisitors = () => {
                     ))}
                   </select>
                 </div>
-                <div className="flex flex-col mt-5">
-                  <Link
-                    to="/inbound-time-series"
-                    className="bg-[#0E6EC5] text-white rounded p-2 block w-fit"
-                  >
+                {/* <div className="flex flex-col mt-5">
+                  <Link to="" className="bg-[#0E6EC5] text-white rounded p-2 block w-fit">
                     Number of Visitor - Time Series
                   </Link>
                 </div>
                 <div className="flex flex-col mt-5">
-                  <Link
-                    to="/inbound-time-series"
-                    className="bg-[#0E6EC5] text-white rounded p-2 block w-fit"
-                  >
+                  <Link to="" className="bg-[#0E6EC5] text-white rounded p-2 block w-fit">
                     Visitor by state visited - Time Series
                   </Link>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
