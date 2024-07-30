@@ -37,6 +37,14 @@ const DomesticVisitors = () => {
       .catch((err) => {
         console.log(err);
       });
+    domo
+      .get("/data/v1/Number_of_trips")
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   const processBarChartData = (data, year) => {

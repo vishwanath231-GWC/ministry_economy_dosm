@@ -16,6 +16,8 @@ import Grossvalue from "./pages/TOURISM_SATELLITE_ACCOUNT/gross_value";
 import GrossValueTime from "./pages/TOURISM_SATELLITE_ACCOUNT/gross_value_time";
 import DomesticTourismHomePage from "./pages/DOMESTIC_TOURISM_STATISTICS/domestic_tourism_homepage";
 import DomesticVisitors from "./pages/DOMESTIC_TOURISM_STATISTICS/domestic_visitors";
+import DomesticTrips from "./pages/DOMESTIC_TOURISM_STATISTICS/domestic_trips";
+import DomesticExpend from "./pages/DOMESTIC_TOURISM_STATISTICS/domestic_expend";
 const App = () => {
   return (
     <HashRouter>
@@ -36,6 +38,8 @@ const App = () => {
         <Route path="/gross-value-time" element={<GrossValueTime />} />
         <Route path="/domestic-tourism-homepage" element={<DomesticTourismHomePage />} />
         <Route path="/domestic-visitors" element={<DomesticVisitors />} />
+        <Route path="/domestic-trips" element={<DomesticTrips />} />
+        <Route path="/domestic-expend" element={<DomesticExpend />} />
       </Routes>
     </HashRouter>
   );
