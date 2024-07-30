@@ -10,7 +10,7 @@ const DomesticTimeSeries = () => {
   const [categoryList, setCategoryList] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [chartData, setChartData] = useState({ categories: [], series: [] });
+  const [chartData, setChartData] = useState(null); // Start with null
 
   useEffect(() => {
     setLoading(true);
@@ -35,7 +35,7 @@ const DomesticTimeSeries = () => {
       })
       .catch((err) => {
         // eslint-disable-next-line no-console
-        console.log(err);
+        console.error(err);
       });
   }, []);
 
@@ -58,9 +58,9 @@ const DomesticTimeSeries = () => {
       return acc;
     }, {});
 
-    const sortedData = Object.entries(dataByYear).sort((a, b) => a[0] - b[0]);
+    const sortedData = Object.entries(dataByYear).sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
 
-    const years = sortedData.map(([year]) => year);
+    const years = sortedData.map(([year]) => parseInt(year));
     const expenditures = sortedData.map(([, expenditure]) => expenditure);
     const differences = expenditures.map((value, index, array) => {
       if (index === 0) return 0;
@@ -114,7 +114,7 @@ const DomesticTimeSeries = () => {
     },
     colors: ["#FFBC2F", "#327EB8"],
     xaxis: {
-      categories: chartData.categories,
+      categories: chartData ? chartData.categories : [],
     },
     yaxis: [
       {
@@ -156,8 +156,6 @@ const DomesticTimeSeries = () => {
     },
   };
 
-  const series = chartData.series;
-
   return (
     <div>
       <div className="inbound_tourism_bg">
@@ -176,7 +174,7 @@ const DomesticTimeSeries = () => {
               {loading ? (
                 <div className="font-bold ml-7">Loading...</div>
               ) : (
-                <Chart options={options} series={series} type="line" height="350px" />
+                <Chart options={options} series={chartData.series} type="line" height="350px" />
               )}
             </div>
             <div>
