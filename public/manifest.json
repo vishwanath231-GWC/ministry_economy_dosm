@@ -30,6 +30,51 @@
             "dataSetId": "5473c0fa-9c9d-4e88-9367-d93ac56096c5",
             "alias": "gv_ratio",
             "fields":[]
+        },
+        {
+            "dataSetId": "7f982cc2-5381-445d-8c14-0408d92fa46e",
+            "alias": "Domestic_Visitors_No_Visitor",
+            "fields":[]
+        },
+        {
+            "dataSetId": "4f59f1ec-3bd0-4723-9351-96fd77cc23b5",
+            "alias": "D_Visit_Visitor_by_StateVisited",
+            "fields":[]
+        },
+        {
+            "dataSetId": "ca5f761c-ee45-4bf7-9cc3-869c965ad9fd",
+            "alias": "Number_of_trips",
+            "fields":[]
+        },
+        {
+            "dataSetId": "a37370a4-0b9d-4489-b555-8052df0e3dd9",
+            "alias": "Type_of_accomodation",
+            "fields":[]
+        },
+        {
+            "dataSetId": "88324fc2-f231-4b38-bc35-f4611b93e145",
+            "alias": "Length_of_stay",
+            "fields":[]
+        },
+        {
+            "dataSetId": "ee2f3c66-d108-44e8-99df-7254953da77b",
+            "alias": "Total_Exp_component",
+            "fields":[]
+        },
+        {
+            "dataSetId": "6a51a668-0197-49d7-bcc8-4525a769077e",
+            "alias": "Total_Exp_By_Trip",
+            "fields":[]
+        },
+        {
+            "dataSetId": "3a5a35be-6eb6-448b-8ef6-4e3d1f077a93",
+            "alias": "Mode_of_Transport",
+            "fields":[]
+        },
+        {
+            "dataSetId": "0ce022d1-d864-440c-81d5-cfd960928663",
+            "alias": "Map",
+            "fields":[]
         }
     ],
     "id": "e58d0425-fec9-43ed-bbd1-1ef6b9ade69c",
