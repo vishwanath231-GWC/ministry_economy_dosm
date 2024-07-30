@@ -15,6 +15,7 @@ import TourismDirect from "./pages/tourismDirect";
 import Grossvalue from "./pages/gross_value";
 import GrossValueTime from "./pages/gross_value_time";
 import DomesticTourismHomePage from "./pages/domestic_tourism_homepage";
+import DomesticVisitors from "./pages/domestic_visitors";
 const App = () => {
   return (
     <HashRouter>
@@ -34,6 +35,7 @@ const App = () => {
         <Route path="/gross-value" element={<Grossvalue />} />
         <Route path="/gross-value-time" element={<GrossValueTime />} />
         <Route path="/domestic-tourism-homepage" element={<DomesticTourismHomePage />} />
+        <Route path="/domestic-visitors" element={<DomesticVisitors />} />
       </Routes>
     </HashRouter>
   );
