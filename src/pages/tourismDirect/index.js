@@ -4,6 +4,7 @@ import Chart from "react-apexcharts";
 import domo from "ryuu.js";
 
 const TourismDirect = () => {
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [timeSeriesOptions, setTimeSeriesOptions] = useState([]);
   const [selectedTimeSeries, setSelectedTimeSeries] = useState("Gross Domestic Product (GDP)");
@@ -24,9 +25,11 @@ const TourismDirect = () => {
   });
 
   useEffect(() => {
+    setLoading(true);
     domo
       .get("/data/v1/time_series")
       .then((response) => {
+        setLoading(false);
         const timeSeriesSet = new Set(
           response.map((item) => item["Time Series of key Statistics"]),
         );
@@ -35,6 +38,7 @@ const TourismDirect = () => {
         processChartData(response, "Gross Domestic Product (GDP)");
       })
       .catch((err) => {
+        // eslint-disable-next-line no-console
         console.log(err);
       });
   }, []);
@@ -82,13 +86,31 @@ const TourismDirect = () => {
       height: 550,
       width: 900,
       type: "line",
+      toolbar: { show: false },
     },
     stroke: {
-      width: [0, 4],
+      width: [0, 2],
+      // colors: ["#FFBC2F"],
     },
     dataLabels: {
       enabled: true,
       enabledOnSeries: [1],
+    },
+    grid: {
+      show: false, // you can either change hear to disable all grids
+      xaxis: {
+        lines: {
+          show: false, //or just here to disable only x axis grids
+        },
+      },
+      yaxis: {
+        lines: {
+          show: false, //or just here to disable only y axis
+        },
+      },
+    },
+    legend: {
+      show: false,
     },
     xaxis: {
       categories: chartData.categories,
@@ -131,27 +153,39 @@ const TourismDirect = () => {
             <h5 className="uppercase text-sm font-medium">Employment in the Tourism Industry</h5>
           </div>
           <div className="grid grid-cols-2 mt-6">
-            <div className="mt-10 ml-14 h-[1000] w-[1000]">
-              <Chart
-                options={options}
-                series={chartData.series}
-                type="line"
-                width="100%"
-                height="350px"
-              />
+            <div className="mt-10 ml-14 h-[1000] w-[600px]">
+              {loading ? (
+                <div className="font-bold">Loading...</div>
+              ) : (
+                <Chart
+                  options={options}
+                  series={chartData.series}
+                  type="line"
+                  width="100%"
+                  height="350px"
+                />
+              )}
             </div>
             <div>
-              <select
-                value={selectedTimeSeries}
-                onChange={handleTimeSeriesChange}
-                className="border p-2 ml-10"
-              >
-                {timeSeriesOptions.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
+              <div className="max-w-sm mx-auto text-sm my-0 bg-white shadow-md rounded p-5">
+                <div className="flex flex-col">
+                  <label className="font-bold mb-2">Time Series of key Statistics</label>
+                  <select
+                    value={selectedTimeSeries}
+                    onChange={handleTimeSeriesChange}
+                    id="year"
+                    name="year"
+                    className="border border-gray-300 rounded p-2"
+                  >
+                    <option value="">Select Year</option>
+                    {timeSeriesOptions.map((year, index) => (
+                      <option value={year} key={index}>
+                        {year}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
         </div>
