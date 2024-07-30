@@ -84,7 +84,10 @@ const KeyMetric = () => {
                     <div className="text-medium text-md">Domestic Tourism Expenditure</div>
                   </div>
                 </Link>
-                <Link className="flex bg-white shadow-md border border-gray-100 rounded p-5">
+                <Link
+                  to="/tourism-direct"
+                  className="flex bg-white shadow-md border border-gray-100 rounded p-5"
+                >
                   <div>
                     <IoBarChartOutline className="text-3xl text-[#FFBC2F]" />
                   </div>
@@ -97,7 +100,10 @@ const KeyMetric = () => {
                     <div className="text-medium text-md">Tourism Direct Gross Domestic Product</div>
                   </div>
                 </Link>
-                <Link className="flex bg-white shadow-md border border-gray-100 rounded p-5">
+                <Link
+                  to="/employment"
+                  className="flex bg-white shadow-md border border-gray-100 rounded p-5"
+                >
                   <div>
                     <VscOrganization className="text-3xl text-[#FFBC2F]" />
                   </div>
