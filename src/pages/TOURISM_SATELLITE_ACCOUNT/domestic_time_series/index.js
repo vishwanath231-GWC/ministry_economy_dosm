@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Navigation from "../../../components/Navigation";
+import Navigation from "../../components/Navigation";
 import Chart from "react-apexcharts";
 import domo from "ryuu.js";
 
@@ -34,7 +34,6 @@ const DomesticTimeSeries = () => {
         processChartData(filteredData, "", "");
       })
       .catch((err) => {
-        // eslint-disable-next-line no-console
         console.error(err);
       });
   }, []);
@@ -66,6 +65,10 @@ const DomesticTimeSeries = () => {
       if (index === 0) return 0;
       return (((value - array[index - 1]) / array[index - 1]) * 100).toFixed(2);
     });
+
+    // console.log("Years:", years);
+    // console.log("Expenditures:", expenditures);
+    // console.log("Differences:", differences);
 
     setChartData({
       categories: years,
@@ -174,7 +177,9 @@ const DomesticTimeSeries = () => {
               {loading ? (
                 <div className="font-bold ml-7">Loading...</div>
               ) : (
-                <Chart options={options} series={chartData.series} type="line" height="350px" />
+                chartData && (
+                  <Chart options={options} series={chartData.series} type="line" height="350px" />
+                )
               )}
             </div>
             <div>
