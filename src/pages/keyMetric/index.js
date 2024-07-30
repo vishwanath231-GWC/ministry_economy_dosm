@@ -200,7 +200,13 @@ const KeyMetric = () => {
                     <TbWorld className="text-3xl text-[#FFBC2F]" />
                   </div>
                   <div className="ml-3">
-                    <div className="font-bold">RM {inboundTotal}</div>
+                    <div className="font-bold">
+                      RM{" "}
+                      {new Intl.NumberFormat("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }).format(inboundTotal)}{" "}
+                    </div>
                     <div className="flex items-center">
                       <IoIosArrowRoundUp className="text-green-700" />
                       <div className="text-medium">{inboundGrowth} %</div>
@@ -216,7 +222,13 @@ const KeyMetric = () => {
                     <LuPlane className="text-3xl text-[#FFBC2F]" />
                   </div>
                   <div className="ml-3">
-                    <div className="font-bold">RM {outboundTotal}</div>
+                    <div className="font-bold">
+                      RM{" "}
+                      {new Intl.NumberFormat("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }).format(outboundTotal)}{" "}
+                    </div>
                     <div className="flex items-center">
                       <IoIosArrowRoundUp className="text-green-700" />
                       <div className="text-medium">{outboundGrowth}%</div>
@@ -232,7 +244,13 @@ const KeyMetric = () => {
                     <IoCarSportOutline className="text-3xl text-[#FFBC2F]" />
                   </div>
                   <div className="ml-3">
-                    <div className="font-bold">RM {domesticTotal}</div>
+                    <div className="font-bold">
+                      RM{" "}
+                      {new Intl.NumberFormat("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }).format(domesticTotal)}{" "}
+                    </div>
                     <div className="flex items-center">
                       <IoIosArrowRoundUp className="text-green-700" />
                       <div className="text-medium">{domesticGrowth}%</div>
@@ -248,7 +266,13 @@ const KeyMetric = () => {
                     <IoBarChartOutline className="text-3xl text-[#FFBC2F]" />
                   </div>
                   <div className="ml-3">
-                    <div className="font-bold">RM {tourismTotal}</div>
+                    <div className="font-bold">
+                      RM{" "}
+                      {new Intl.NumberFormat("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }).format(tourismTotal)}{" "}
+                    </div>
                     <div className="flex items-center">
                       <IoIosArrowRoundUp className="text-green-700" />
                       <div className="text-medium">{tourismGrowth}%</div>
@@ -280,7 +304,13 @@ const KeyMetric = () => {
                     <BiCoinStack className="text-3xl text-[#FFBC2F]" />
                   </div>
                   <div className="ml-3">
-                    <div className="font-bold">RM {grossTotal}</div>
+                    <div className="font-bold">
+                      RM{" "}
+                      {new Intl.NumberFormat("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }).format(grossTotal)}{" "}
+                    </div>
                     <div className="flex items-center">
                       <IoIosArrowRoundUp className="text-green-700" />
                       <div className="text-medium">{grossGrowth}%</div>
