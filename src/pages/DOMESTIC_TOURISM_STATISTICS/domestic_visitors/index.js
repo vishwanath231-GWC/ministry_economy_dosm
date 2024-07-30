@@ -37,6 +37,14 @@ const DomesticVisitors = () => {
       .catch((err) => {
         console.log(err);
       });
+    domo
+      .get("/data/v1/Number_of_trips")
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   const processBarChartData = (data, year) => {
@@ -200,7 +208,7 @@ const DomesticVisitors = () => {
                 </div>
                 <div className="flex flex-col mt-5">
                   <Link
-                    to="/inbound-time-series"
+                    // to="/inbound-time-series"
                     className="bg-[#0E6EC5] text-white rounded p-2 block w-fit"
                   >
                     Number of Visitor - Time Series
@@ -208,7 +216,7 @@ const DomesticVisitors = () => {
                 </div>
                 <div className="flex flex-col mt-5">
                   <Link
-                    to="/inbound-time-series"
+                    // to="/inbound-time-series"
                     className="bg-[#0E6EC5] text-white rounded p-2 block w-fit"
                   >
                     Visitor by state visited - Time Series

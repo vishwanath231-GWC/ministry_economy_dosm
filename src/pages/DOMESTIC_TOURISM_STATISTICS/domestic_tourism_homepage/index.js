@@ -127,7 +127,7 @@ const DomesticTourismHomePage = () => {
               </div>
             </div>
           </Link>
-          <Link className="absolute top-[260px] right-[100px]">
+          <Link to="/domestic-trips" className="absolute top-[260px] right-[100px]">
             <div>
               <div className="font-medium">Number of trips (Million)</div>
               <div className="flex items-center">
