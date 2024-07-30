@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Navigation from "../../components/Navigation";
+import Navigation from "../../../components/Navigation";
 import Chart from "react-apexcharts";
 import domo from "ryuu.js";
 
-const OutboundTimeSeries = () => {
+const InboundTimeSeries = () => {
+  const [loading, setLoading] = useState(false);
   const [productList, setProductList] = useState([]);
+  const [categoryList, setCategoryList] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [chartOptions, setChartOptions] = useState({
     chart: {
@@ -13,12 +15,10 @@ const OutboundTimeSeries = () => {
         show: false,
       },
     },
-    stroke: {
-      width: [0, 2],
-    },
     xaxis: {
       categories: [],
       labels: {
+        show: true,
         style: {
           fontSize: "12px",
           cssClass: "apexcharts-xaxis-label",
@@ -44,7 +44,7 @@ const OutboundTimeSeries = () => {
         },
       },
     ],
-    colors: ["#FFBC2F", "#327EB8"],
+    colors: ["#FFBC2F", "#FF0000"],
     dataLabels: {
       enabled: false,
       style: {
@@ -69,13 +69,17 @@ const OutboundTimeSeries = () => {
   ]);
 
   useEffect(() => {
+    setLoading(true);
     domo
       .get("/data/v1/tourism_satellite")
       .then((data) => {
-        const filtered = data.filter((item) => item.FLAG === "Outbound Tourism Expenditure");
+        setLoading(false);
+        const filtered = data.filter((item) => item.FLAG === "Inbound Tourism Expenditure");
 
         const uniqueProducts = [...new Set(filtered.map((item) => item.Product))];
+        const uniqueCategories = [...new Set(filtered.map((item) => item.Category))];
         setProductList(uniqueProducts);
+        setCategoryList(uniqueCategories);
         setFilteredData(filtered);
 
         processData(filtered);
@@ -130,9 +134,15 @@ const OutboundTimeSeries = () => {
     ]);
   };
 
-  const handleFilterChange = (e) => {
-    const value = e.target.value;
-    const filtered = value ? filteredData.filter((item) => item.Product === value) : filteredData;
+  const handleFilterChange = (filterType, value) => {
+    let filtered = filteredData;
+
+    if (filterType === "product") {
+      filtered = filteredData.filter((item) => item.Product === value);
+    } else if (filterType === "category") {
+      filtered = filteredData.filter((item) => item.Category === value);
+    }
+
     processData(filtered);
   };
 
@@ -141,17 +151,21 @@ const OutboundTimeSeries = () => {
       <div className="inbound_tourism_bg">
         <div className="max-w-screen-xl mx-auto my-0 py-6 px-5">
           <div className="mb-6">
-            <Navigation backLink="/outbound-tourism" />
+            <Navigation backLink="/inbound-tourisom" />
           </div>
           <div>
             <h2 className="uppercase text-xl font-bold">tourism satellite account</h2>
             <h5 className="uppercase text-sm font-medium">
-              Time Series outbound tourism expenditure
+              Time Series inbound tourism expenditure
             </h5>
           </div>
           <div className="grid grid-cols-2 mt-6">
             <div>
-              <Chart options={chartOptions} series={chartSeries} type="line" height="300px" />
+              {loading ? (
+                <div className="font-bold ml-7">Loading...</div>
+              ) : (
+                <Chart options={chartOptions} series={chartSeries} type="line" height="300px" />
+              )}
             </div>
             <div>
               <div className="max-w-sm mx-auto text-sm my-0 bg-white shadow-md rounded p-5">
@@ -161,7 +175,7 @@ const OutboundTimeSeries = () => {
                     id="product"
                     name="product"
                     className="border border-gray-300 rounded p-2"
-                    onChange={handleFilterChange}
+                    onChange={(e) => handleFilterChange("product", e.target.value)}
                   >
                     <option value="">Select Product</option>
                     {productList.map((product, index) => (
@@ -169,6 +183,24 @@ const OutboundTimeSeries = () => {
                         {product}
                       </option>
                     ))}
+                  </select>
+                </div>
+                <div className="flex flex-col mt-5">
+                  <label className="font-bold mb-2">Category</label>
+                  <select
+                    id="category"
+                    name="category"
+                    className="border border-gray-300 rounded p-2"
+                    onChange={(e) => handleFilterChange("category", e.target.value)}
+                  >
+                    <option value="">Select Category</option>
+                    {categoryList
+                      .filter((category) => category !== "")
+                      .map((item, index) => (
+                        <option value={item} key={index}>
+                          {item}
+                        </option>
+                      ))}
                   </select>
                 </div>
               </div>
@@ -180,4 +212,4 @@ const OutboundTimeSeries = () => {
   );
 };
 
-export default OutboundTimeSeries;
+export default InboundTimeSeries;

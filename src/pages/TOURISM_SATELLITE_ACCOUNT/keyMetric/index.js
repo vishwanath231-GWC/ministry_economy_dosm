@@ -7,7 +7,7 @@ import { LuPlane } from "react-icons/lu";
 import { IoCarSportOutline, IoBarChartOutline } from "react-icons/io5";
 import { VscOrganization } from "react-icons/vsc";
 import { BiCoinStack } from "react-icons/bi";
-import Navigation from "../../components/Navigation";
+import Navigation from "../../../components/Navigation";
 import domo from "ryuu.js";
 
 const KeyMetric = () => {

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Navigation from "../../components/Navigation";
+import Navigation from "../../../components/Navigation";
 import Chart from "react-apexcharts";
 import domo from "ryuu.js";
 import { Link } from "react-router-dom";
 
 const DomesticTourism = () => {
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [yearList, setYearList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
@@ -13,9 +14,11 @@ const DomesticTourism = () => {
   const [chartData, setChartData] = useState({ categories: [], series: [] });
 
   useEffect(() => {
+    setLoading(true);
     domo
       .get("/data/v1/tourism_satellite")
       .then((response) => {
+        setLoading(false);
         const filteredData = response.filter(
           (item) => item.FLAG === "Domestic Tourism Expenditure",
         );
@@ -31,6 +34,7 @@ const DomesticTourism = () => {
         processChartData(filteredData, "", "");
       })
       .catch((err) => {
+        // eslint-disable-next-line no-console
         console.log(err);
       });
   }, []);
@@ -136,7 +140,11 @@ const DomesticTourism = () => {
           </div>
           <div className="grid grid-cols-2 mt-6">
             <div className="mt-6 ml-5">
-              <Chart options={options} series={series} type="bar" height="350px" />
+              {loading ? (
+                <div className="font-bold ml-7">Loading...</div>
+              ) : (
+                <Chart options={options} series={series} type="bar" height="350px" />
+              )}
             </div>
             <div>
               <div className="max-w-sm mx-auto text-sm my-0 bg-white shadow-md rounded p-5">
