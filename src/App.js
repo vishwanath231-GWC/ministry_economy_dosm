@@ -14,8 +14,8 @@ import EmploymentTime from "./pages/employmentTime";
 import TourismDirect from "./pages/tourismDirect";
 import Grossvalue from "./pages/gross_value";
 import GrossValueTime from "./pages/gross_value_time";
-import DomesticTourismHomePage from "./pages/domestic_tourism_homepage";
-import DomesticVisitors from "./pages/domestic_visitors";
+import DomesticTourismHomePage from "./pages/DOMESTIC_TOURISM_STATISTICS/domestic_tourism_homepage";
+import DomesticVisitors from "./pages/DOMESTIC_TOURISM_STATISTICS/domestic_visitors";
 const App = () => {
   return (
     <HashRouter>
