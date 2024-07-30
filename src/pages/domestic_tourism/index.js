@@ -90,17 +90,21 @@ const DomesticTourism = () => {
     chart: {
       height: 350,
       type: "bar",
+      toolbar: {
+        show: false,
+      },
     },
     plotOptions: {
       bar: {
         horizontal: false,
       },
     },
+    colors: ["#FFBC2F"],
     xaxis: {
       categories: chartData.categories,
     },
     dataLabels: {
-      enabled: true,
+      enabled: false,
       formatter: function (val) {
         return `${val}%`;
       },
@@ -109,6 +113,9 @@ const DomesticTourism = () => {
       y: {
         formatter: (value) => `${value}%`,
       },
+    },
+    grid: {
+      show: false,
     },
   };
 
@@ -128,7 +135,7 @@ const DomesticTourism = () => {
             </h5>
           </div>
           <div className="grid grid-cols-2 mt-6">
-            <div>
+            <div className="mt-6 ml-5">
               <Chart options={options} series={series} type="bar" height="350px" />
             </div>
             <div>

@@ -84,12 +84,13 @@ const GrossValueTime = () => {
       type: "line",
     },
     stroke: {
-      width: [0, 4],
+      width: [0, 2],
     },
     dataLabels: {
-      enabled: true,
+      enabled: false,
       enabledOnSeries: [1],
     },
+    colors: ["#FFBC2F", "#327EB8"],
     labels: chartData.categories,
     yaxis: [
       {
@@ -139,23 +140,31 @@ const GrossValueTime = () => {
               />
             </div>
             <div>
-              <select
-                value={selectedProduct}
-                onChange={handleProductChange}
-                className="border p-2 ml-10"
-              >
-                {products.map((product) => (
-                  <option key={product} value={product}>
-                    {product}
-                  </option>
-                ))}
-              </select>
-              <Link
-                to="/tourism-direct"
-                className="bg-[#0E6EC5] text-white mt-5 rounded p-2 block w-fit"
-              >
-                Key Statistics
-              </Link>
+              <div className="max-w-sm mx-auto text-sm my-0 bg-white shadow-md rounded p-5">
+                <div className="flex flex-col">
+                  <label className="font-bold mb-2">Year</label>
+                  <select
+                    id="year"
+                    name="year"
+                    className="border border-gray-300 rounded p-2"
+                    value={selectedProduct}
+                    onChange={handleProductChange}
+                  >
+                    <option value="">Select Year</option>
+                    {products.map((product, index) => (
+                      <option value={product} key={index}>
+                        {product}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <Link
+                  to="/tourism-direct"
+                  className="bg-[#0E6EC5] text-white mt-5 rounded p-2 mt-5 block w-fit"
+                >
+                  Key Statistics
+                </Link>
+              </div>
             </div>
           </div>
         </div>

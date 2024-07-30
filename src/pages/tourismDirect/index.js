@@ -93,7 +93,7 @@ const TourismDirect = () => {
       // colors: ["#FFBC2F"],
     },
     dataLabels: {
-      enabled: true,
+      enabled: false,
       enabledOnSeries: [1],
     },
     grid: {
@@ -112,6 +112,7 @@ const TourismDirect = () => {
     legend: {
       show: false,
     },
+    colors: ["#FFBC2F", "#327EB8"],
     xaxis: {
       categories: chartData.categories,
       title: {

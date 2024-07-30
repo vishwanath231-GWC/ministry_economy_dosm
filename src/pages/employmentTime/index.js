@@ -79,9 +79,12 @@ const EmploymentTime = () => {
       height: 550,
       width: 900,
       type: "line",
+      toolbar: {
+        show: false,
+      },
     },
     stroke: {
-      width: [0, 4],
+      width: [0, 2],
     },
     dataLabels: {
       enabled: true,
@@ -109,6 +112,20 @@ const EmploymentTime = () => {
     ],
     xaxis: {
       categories: chartData.categories,
+    },
+    colors: ["#FFBC2F", "#327EB8"],
+    grid: {
+      show: false, // you can either change hear to disable all grids
+      xaxis: {
+        lines: {
+          show: false, //or just here to disable only x axis grids
+        },
+      },
+      yaxis: {
+        lines: {
+          show: false, //or just here to disable only y axis
+        },
+      },
     },
   };
 

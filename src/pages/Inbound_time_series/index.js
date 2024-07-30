@@ -11,7 +11,7 @@ const InboundTimeSeries = () => {
     chart: {
       id: "bar-line",
       toolbar: {
-        show: true,
+        show: false,
       },
     },
     xaxis: {
@@ -45,7 +45,7 @@ const InboundTimeSeries = () => {
     ],
     colors: ["#FFBC2F", "#FF0000"],
     dataLabels: {
-      enabled: true,
+      enabled: false,
       style: {
         colors: ["#000"],
       },
@@ -148,7 +148,7 @@ const InboundTimeSeries = () => {
       <div className="inbound_tourism_bg">
         <div className="max-w-screen-xl mx-auto my-0 py-6 px-5">
           <div className="mb-6">
-            <Navigation backLink="/inbound-tourism" />
+            <Navigation backLink="/inbound-tourisom" />
           </div>
           <div>
             <h2 className="uppercase text-xl font-bold">tourism satellite account</h2>

@@ -14,7 +14,7 @@ const InboundTourism = () => {
     chart: {
       id: "basic-bar",
       toolbar: {
-        show: true,
+        show: false,
       },
     },
     xaxis: {
@@ -33,7 +33,7 @@ const InboundTourism = () => {
     },
     colors: ["#FFBC2F"],
     dataLabels: {
-      enabled: true,
+      enabled: false,
       style: {
         colors: ["#000"], // Set percentage values to black
       },

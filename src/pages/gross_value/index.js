@@ -110,6 +110,9 @@ const Grossvalue = () => {
     chart: {
       height: 350,
       type: "bar",
+      toolbar: {
+        show: false,
+      },
     },
     plotOptions: {
       bar: {
@@ -120,11 +123,9 @@ const Grossvalue = () => {
       categories: chartData.categories,
     },
     dataLabels: {
-      enabled: true,
-      formatter: function (val) {
-        return `${val}%`;
-      },
+      enabled: false,
     },
+    colors: ["#FFBC2F"],
     tooltip: {
       y: {
         formatter: (value) => `${value}%`,
@@ -147,18 +148,21 @@ const Grossvalue = () => {
               Gross value Added in the Tourism Industry
             </h5>
           </div>
-          <div className="grid grid-cols-2 mt-6">
-            <div className="flex flex-nowrap">
-              {statisticsCards.map((card, index) => (
-                <div key={index} className="bg-white shadow-md rounded p-1 m-2 w-full sm:w-48">
-                  <div className="font-bold">{card.type}</div>
-                  <div className="text-xl">{card.value}</div>
-                </div>
-              ))}
+          <div className="grid grid-cols-2 mt-2 gap-6">
+            <div className="mt-10">
+              <Chart options={options} series={series} type="bar" height="350px" />
             </div>
             <div>
-              <div className="max-w-sm mx-auto text-sm my-0 bg-white shadow-md rounded p-5">
-                <div className="flex flex-col">
+              <div className=" text-sm my-0 bg-white shadow-md rounded p-5">
+                <div className="grid grid-cols-2 gap-4 rounded">
+                  {statisticsCards.map((card, index) => (
+                    <div key={index} className="bg-white shadow-md rounded p-3 w-full text-sm">
+                      <div className="font-bold">{card.type}</div>
+                      <div className="text-xl mt-5">{card.value.toFixed(2)}</div>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex flex-col mt-4">
                   <label className="font-bold mb-2">Year</label>
                   <select
                     id="year"
@@ -182,9 +186,6 @@ const Grossvalue = () => {
                   Time Series
                 </Link>
               </div>
-            </div>
-            <div>
-              <Chart options={options} series={series} type="bar" height="350px" />
             </div>
           </div>
         </div>
