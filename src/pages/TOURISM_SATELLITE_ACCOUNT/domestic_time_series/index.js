@@ -4,7 +4,6 @@ import Chart from "react-apexcharts";
 import domo from "ryuu.js";
 
 const DomesticTimeSeries = () => {
-  const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [productList, setProductList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
@@ -13,11 +12,9 @@ const DomesticTimeSeries = () => {
   const [chartData, setChartData] = useState(null); // Start with null
 
   useEffect(() => {
-    setLoading(true);
     domo
       .get("/data/v1/tourism_satellite")
       .then((response) => {
-        setLoading(false);
         const filteredData = response.filter(
           (item) => item.FLAG === "Domestic Tourism Expenditure",
         );
@@ -103,19 +100,12 @@ const DomesticTimeSeries = () => {
     chart: {
       height: 350,
       type: "bar",
-      toolbar: {
-        show: false,
-      },
-    },
-    stroke: {
-      width: [0, 2],
     },
     plotOptions: {
       bar: {
         horizontal: false,
       },
     },
-    colors: ["#FFBC2F", "#327EB8"],
     xaxis: {
       categories: chartData ? chartData.categories : [],
     },
@@ -139,7 +129,7 @@ const DomesticTimeSeries = () => {
       },
     ],
     dataLabels: {
-      enabled: false,
+      enabled: true,
       formatter: function (val, { seriesIndex }) {
         if (seriesIndex === 1) {
           return `${val}%`;
@@ -174,12 +164,8 @@ const DomesticTimeSeries = () => {
           </div>
           <div className="grid grid-cols-2 mt-6">
             <div>
-              {loading ? (
-                <div className="font-bold ml-7">Loading...</div>
-              ) : (
-                chartData && (
-                  <Chart options={options} series={chartData.series} type="line" height="350px" />
-                )
+              {chartData && (
+                <Chart options={options} series={chartData.series} type="line" height="350px" />
               )}
             </div>
             <div>
