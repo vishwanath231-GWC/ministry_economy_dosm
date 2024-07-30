@@ -35,7 +35,7 @@ const CardPage = () => {
                 for sustainable tourism development
               </p>
             </Link>
-            <div className="border-b-0 bg-white p-4 rounded-lg">
+            <Link to="/domestic-tourism-homepage" className="border-b-0 bg-white p-4 rounded-lg">
               <div className="mb-4">
                 <IoCameraOutline className="text-3xl text-[#FFBC2F]" />
               </div>
@@ -48,7 +48,7 @@ const CardPage = () => {
                 tourists. This analysis helps in identifying trends, forecasting demand, and
                 formulating strategies to boost the tourism industry.
               </p>
-            </div>
+            </Link>
             <div className="border-b-0 bg-white p-4 rounded-lg">
               <div className="mb-4">
                 <LuFlower className="text-3xl text-[#FFBC2F]" />

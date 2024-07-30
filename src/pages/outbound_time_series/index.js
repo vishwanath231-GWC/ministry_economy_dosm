@@ -10,8 +10,11 @@ const OutboundTimeSeries = () => {
     chart: {
       id: "bar-line",
       toolbar: {
-        show: true,
+        show: false,
       },
+    },
+    stroke: {
+      width: [0, 2],
     },
     xaxis: {
       categories: [],
@@ -41,9 +44,9 @@ const OutboundTimeSeries = () => {
         },
       },
     ],
-    colors: ["#FFBC2F", "#FF0000"],
+    colors: ["#FFBC2F", "#327EB8"],
     dataLabels: {
-      enabled: true,
+      enabled: false,
       style: {
         colors: ["#000"],
       },

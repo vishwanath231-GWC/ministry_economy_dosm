@@ -72,6 +72,9 @@ const OutboundTourism = () => {
     chart: {
       height: 350,
       type: "bar",
+      toolbar: {
+        show: false,
+      },
     },
     plotOptions: {
       bar: {
@@ -86,8 +89,9 @@ const OutboundTourism = () => {
         show: false,
       },
     },
+    colors: ["#FFBC2F"],
     dataLabels: {
-      enabled: true,
+      enabled: false,
       formatter: function (val) {
         return `${val}%`;
       },
@@ -96,6 +100,9 @@ const OutboundTourism = () => {
       y: {
         formatter: (value) => `${value}%`,
       },
+    },
+    grid: {
+      show: false,
     },
   };
 
@@ -115,7 +122,7 @@ const OutboundTourism = () => {
             </h5>
           </div>
           <div className="grid grid-cols-2 mt-6">
-            <div>
+            <div className="mt-10">
               <Chart options={options} series={series} type="bar" height="350px" />
             </div>
             <div>

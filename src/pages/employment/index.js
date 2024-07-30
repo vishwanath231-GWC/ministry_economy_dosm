@@ -112,7 +112,7 @@ const Employment = () => {
       },
     },
     dataLabels: {
-      enabled: true,
+      enabled: false,
       formatter: (val) => `${val}%`,
       style: {
         colors: ["#000"], // Set percentage values to black
