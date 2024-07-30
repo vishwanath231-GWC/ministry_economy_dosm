@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Navigation from "../../components/Navigation";
+import Navigation from "../../../components/Navigation";
 import Chart from "react-apexcharts";
 import domo from "ryuu.js";
 
