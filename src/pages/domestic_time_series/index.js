@@ -9,7 +9,7 @@ const DomesticTimeSeries = () => {
   const [categoryList, setCategoryList] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [chartData, setChartData] = useState({ categories: [], series: [] });
+  const [chartData, setChartData] = useState(null); // Start with null
 
   useEffect(() => {
     domo
@@ -31,7 +31,7 @@ const DomesticTimeSeries = () => {
         processChartData(filteredData, "", "");
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }, []);
 
@@ -54,14 +54,18 @@ const DomesticTimeSeries = () => {
       return acc;
     }, {});
 
-    const sortedData = Object.entries(dataByYear).sort((a, b) => a[0] - b[0]);
+    const sortedData = Object.entries(dataByYear).sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
 
-    const years = sortedData.map(([year]) => year);
+    const years = sortedData.map(([year]) => parseInt(year));
     const expenditures = sortedData.map(([, expenditure]) => expenditure);
     const differences = expenditures.map((value, index, array) => {
       if (index === 0) return 0;
       return (((value - array[index - 1]) / array[index - 1]) * 100).toFixed(2);
     });
+
+    // console.log("Years:", years);
+    // console.log("Expenditures:", expenditures);
+    // console.log("Differences:", differences);
 
     setChartData({
       categories: years,
@@ -103,7 +107,7 @@ const DomesticTimeSeries = () => {
       },
     },
     xaxis: {
-      categories: chartData.categories,
+      categories: chartData ? chartData.categories : [],
     },
     yaxis: [
       {
@@ -145,8 +149,6 @@ const DomesticTimeSeries = () => {
     },
   };
 
-  const series = chartData.series;
-
   return (
     <div>
       <div className="inbound_tourism_bg">
@@ -162,7 +164,9 @@ const DomesticTimeSeries = () => {
           </div>
           <div className="grid grid-cols-2 mt-6">
             <div>
-              <Chart options={options} series={series} type="line" height="350px" />
+              {chartData && (
+                <Chart options={options} series={chartData.series} type="line" height="350px" />
+              )}
             </div>
             <div>
               <div className="max-w-sm mx-auto text-sm my-0 bg-white shadow-md rounded p-5">
