@@ -9,6 +9,9 @@ import OutboundTourism from "./pages/outbound_tourism";
 import OutboundTimeSeries from "./pages/outbound_time_series";
 import DomesticTourism from "./pages/domestic_tourism";
 import DomesticTimeSeries from "./pages/domestic_time_series";
+import Employment from "./pages/employment";
+import EmploymentTime from "./pages/employmentTime";
+import TourismDirect from "./pages/tourismDirect";
 const App = () => {
   return (
     <HashRouter>
@@ -22,6 +25,9 @@ const App = () => {
         <Route path="/outbound-time-series" element={<OutboundTimeSeries />} />
         <Route path="/domestic-tourism" element={<DomesticTourism />} />
         <Route path="/domestic-time-series" element={<DomesticTimeSeries />} />
+        <Route path="/employment" element={<Employment />} />
+        <Route path="/employment-time" element={<EmploymentTime />} />
+        <Route path="/tourism-direct" element={<TourismDirect />} />
       </Routes>
     </HashRouter>
   );
