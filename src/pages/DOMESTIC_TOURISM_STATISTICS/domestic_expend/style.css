@@ -1,0 +1,22 @@
+
+.domestic_bgs{
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: url("../../../assets/images/page_bg3.jpg");
+  background-position: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.domestic_bgs::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
