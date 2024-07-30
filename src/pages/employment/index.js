@@ -69,10 +69,24 @@ const Employment = () => {
     chart: {
       height: 550,
       type: "bar",
+      toolbar: { show: false },
     },
     plotOptions: {
       bar: {
         horizontal: true,
+      },
+    },
+    grid: {
+      show: false, // you can either change hear to disable all grids
+      xaxis: {
+        lines: {
+          show: false, //or just here to disable only x axis grids
+        },
+      },
+      yaxis: {
+        lines: {
+          show: false, //or just here to disable only y axis
+        },
       },
     },
     xaxis: {
@@ -100,6 +114,9 @@ const Employment = () => {
     dataLabels: {
       enabled: true,
       formatter: (val) => `${val}%`,
+      style: {
+        colors: ["#000"], // Set percentage values to black
+      },
     },
   };
 
@@ -121,16 +138,31 @@ const Employment = () => {
               <Chart options={options} series={series} type="bar" width="100%" height="350px" />
             </div>
             <div>
-              <select value={selectedYear} onChange={handleYearChange} className="border p-2 ml-10">
-                {years.map((year) => (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                ))}
-              </select>
-              <Link to="/employment-time">
-                <button> Time Series</button>
-              </Link>
+              <div className="max-w-sm mx-auto text-sm my-0 bg-white shadow-md rounded p-5">
+                <div className="flex flex-col">
+                  <label className="font-bold mb-2">Year</label>
+                  <select
+                    value={selectedYear}
+                    onChange={handleYearChange}
+                    id="year"
+                    name="year"
+                    className="border border-gray-300 rounded p-2"
+                  >
+                    <option value="">Select Year</option>
+                    {years.map((year, index) => (
+                      <option value={year} key={index}>
+                        {year}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <Link
+                  to="/inbound-time-series"
+                  className="bg-[#0E6EC5] text-white mt-5 rounded p-2 mt-5 block w-fit"
+                >
+                  Time Series
+                </Link>
+              </div>
             </div>
           </div>
         </div>
