@@ -142,7 +142,7 @@ const InboundTourism = () => {
             </h5>
           </div>
           <div className="grid grid-cols-2 mt-6">
-            <div className="">
+            <div className="mt-20 ml-10">
               <Chart
                 options={chartOptions}
                 series={chartSeries}
