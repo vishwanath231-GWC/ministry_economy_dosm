@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
-import Navigation from "../../components/Navigation";
+import Navigation from "../../../components/Navigation";
 import Chart from "react-apexcharts";
 import domo from "ryuu.js";
 import { Link } from "react-router-dom";
 
 const InboundTourism = () => {
+  const [loading, setLoading] = useState(false);
   const [yearList, setYearList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -50,9 +51,11 @@ const InboundTourism = () => {
   ]);
 
   useEffect(() => {
+    setLoading(true);
     domo
       .get("/data/v1/tourism_satellite")
       .then((data) => {
+        setLoading(false);
         // Filter data with "FLAG": "Inbound Tourism Expenditure"
         const filtered = data.filter((item) => item.FLAG === "Inbound Tourism Expenditure");
 
@@ -61,7 +64,6 @@ const InboundTourism = () => {
         setYearList(uniqueYears);
         setCategoryList(uniqueCategories);
         setFilteredData(filtered);
-
         processData(filtered);
       })
       .catch((err) => {
@@ -143,13 +145,17 @@ const InboundTourism = () => {
           </div>
           <div className="grid grid-cols-2 mt-6">
             <div className="mt-20 ml-10">
-              <Chart
-                options={chartOptions}
-                series={chartSeries}
-                type="bar"
-                width="100%"
-                height="300px"
-              />
+              {loading ? (
+                <div className="font-bold">Loading...</div>
+              ) : (
+                <Chart
+                  options={chartOptions}
+                  series={chartSeries}
+                  type="bar"
+                  width="100%"
+                  height="300px"
+                />
+              )}
             </div>
             <div>
               <div className="max-w-sm mx-auto text-sm my-0 bg-white shadow-md rounded p-5">

@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
-import Navigation from "../../components/Navigation";
+import Navigation from "../../../components/Navigation";
 import Chart from "react-apexcharts";
 import domo from "ryuu.js";
-import { Link } from "react-router-dom";
 
-const GrossValueTime = () => {
+const EmploymentTime = () => {
   const [data, setData] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState("All");
+  const [industries, setIndustries] = useState([]);
+  const [selectedIndustry, setSelectedIndustry] = useState("All");
   const [chartData, setChartData] = useState({
     categories: [],
     series: [
       {
-        name: "Gross Value Added",
+        name: "Employment",
         type: "column",
         data: [],
       },
@@ -26,26 +25,24 @@ const GrossValueTime = () => {
 
   useEffect(() => {
     domo
-      .get("/data/v1/tourism_satellite")
+      .get("/data/v1/time_series_employment")
       .then((response) => {
-        const filteredData = response.filter(
-          (item) => item.FLAG === "Gross value added of Tourism",
-        );
-        const productSet = new Set(filteredData.map((item) => item.Product));
-        setProducts(["All", ...productSet]);
-        setData(filteredData);
-        processChartData(filteredData, "All");
+        const industrySet = new Set(response.map((item) => item.INDUSTRY));
+        setIndustries(["All", ...industrySet]);
+        setData(response);
+        processChartData(response, "All");
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  const processChartData = (data, product) => {
-    const filteredData = product === "All" ? data : data.filter((item) => item.Product === product);
+  const processChartData = (data, industry) => {
+    const filteredData =
+      industry === "All" ? data : data.filter((item) => item.INDUSTRY === industry);
     const yearlyData = filteredData.reduce((acc, item) => {
-      if (!acc[item.Year]) acc[item.Year] = 0;
-      acc[item.Year] += item["converted million"];
+      if (!acc[item.YEAR]) acc[item.YEAR] = 0;
+      acc[item.YEAR] += item["People(thousands)"];
       return acc;
     }, {});
     const categories = Object.keys(yearlyData).map((year) => parseInt(year));
@@ -58,7 +55,7 @@ const GrossValueTime = () => {
       categories,
       series: [
         {
-          name: "Gross Value Added",
+          name: "Employment",
           type: "column",
           data: seriesData,
         },
@@ -71,9 +68,9 @@ const GrossValueTime = () => {
     });
   };
 
-  const handleProductChange = (event) => {
+  const handleIndustryChange = (event) => {
     const selected = event.target.value;
-    setSelectedProduct(selected);
+    setSelectedIndustry(selected);
     processChartData(data, selected);
   };
 
@@ -82,6 +79,9 @@ const GrossValueTime = () => {
       height: 550,
       width: 900,
       type: "line",
+      toolbar: {
+        show: false,
+      },
     },
     stroke: {
       width: [0, 2],
@@ -98,7 +98,7 @@ const GrossValueTime = () => {
           show: false,
         },
         title: {
-          text: "Gross Value Added (Million)",
+          text: "Employment (thousands)",
         },
       },
       {
@@ -114,6 +114,19 @@ const GrossValueTime = () => {
     xaxis: {
       categories: chartData.categories,
     },
+    grid: {
+      show: false, // you can either change hear to disable all grids
+      xaxis: {
+        lines: {
+          show: false, //or just here to disable only x axis grids
+        },
+      },
+      yaxis: {
+        lines: {
+          show: false, //or just here to disable only y axis
+        },
+      },
+    },
   };
 
   return (
@@ -121,13 +134,11 @@ const GrossValueTime = () => {
       <div className="inbound_tourism_bg">
         <div className="max-w-screen-xl mx-auto my-0 py-6 px-5">
           <div className="mb-6">
-            <Navigation backLink="/gross-value" />
+            <Navigation backLink="/employment" />
           </div>
           <div>
             <h2 className="uppercase text-xl font-bold">tourism satellite account</h2>
-            <h5 className="uppercase text-sm font-medium">
-              Gross value Added in the Tourism Industry
-            </h5>
+            <h5 className="uppercase text-sm font-medium">Employment in the Tourism Industry</h5>
           </div>
           <div className="grid grid-cols-2 mt-6">
             <div className="mt-10 ml-14 h-[1000] w-[1000]">
@@ -140,31 +151,17 @@ const GrossValueTime = () => {
               />
             </div>
             <div>
-              <div className="max-w-sm mx-auto text-sm my-0 bg-white shadow-md rounded p-5">
-                <div className="flex flex-col">
-                  <label className="font-bold mb-2">Year</label>
-                  <select
-                    id="year"
-                    name="year"
-                    className="border border-gray-300 rounded p-2"
-                    value={selectedProduct}
-                    onChange={handleProductChange}
-                  >
-                    <option value="">Select Year</option>
-                    {products.map((product, index) => (
-                      <option value={product} key={index}>
-                        {product}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <Link
-                  to="/tourism-direct"
-                  className="bg-[#0E6EC5] text-white mt-5 rounded p-2 mt-5 block w-fit"
-                >
-                  Key Statistics
-                </Link>
-              </div>
+              <select
+                value={selectedIndustry}
+                onChange={handleIndustryChange}
+                className="border p-2 ml-10"
+              >
+                {industries.map((industry) => (
+                  <option key={industry} value={industry}>
+                    {industry}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         </div>
@@ -173,4 +170,4 @@ const GrossValueTime = () => {
   );
 };
 
-export default GrossValueTime;
+export default EmploymentTime;

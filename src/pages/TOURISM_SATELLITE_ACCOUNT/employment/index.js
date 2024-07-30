@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
-import Navigation from "../../components/Navigation";
+import Navigation from "../../../components/Navigation";
 import Chart from "react-apexcharts";
 import domo from "ryuu.js";
 import { Link } from "react-router-dom";
 
 const Employment = () => {
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [years, setYears] = useState([]);
   const [selectedYear, setSelectedYear] = useState("All");
   const [chartData, setChartData] = useState({ categories: [], series: [] });
 
   useEffect(() => {
+    setLoading(true);
     domo
       .get("/data/v1/time_series_employment")
       .then((response) => {
+        setLoading(false);
         const yearSet = new Set(response.map((item) => item.YEAR));
         setYears(["All", ...Array.from(yearSet)]);
         setData(response);
@@ -103,6 +106,7 @@ const Employment = () => {
         formatter: (value) => value,
       },
     },
+    colors: ["#FFBC2F"],
     yaxis: {
       title: {
         text: "Percentage",
@@ -135,7 +139,11 @@ const Employment = () => {
           </div>
           <div className="grid grid-cols-2 mt-6">
             <div className="mt-10 ml-14 h-[1000] w-[1000]">
-              <Chart options={options} series={series} type="bar" width="100%" height="350px" />
+              {loading ? (
+                <div className="font-bold">Loading...</div>
+              ) : (
+                <Chart options={options} series={series} type="bar" width="100%" height="350px" />
+              )}
             </div>
             <div>
               <div className="max-w-sm mx-auto text-sm my-0 bg-white shadow-md rounded p-5">

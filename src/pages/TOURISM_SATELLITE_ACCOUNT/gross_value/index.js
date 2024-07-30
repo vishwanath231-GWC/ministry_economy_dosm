@@ -1,47 +1,53 @@
 import React, { useEffect, useState } from "react";
-import Navigation from "../../components/Navigation";
+import Navigation from "../../../components/Navigation";
 import Chart from "react-apexcharts";
 import domo from "ryuu.js";
 import { Link } from "react-router-dom";
 
-const DomesticTourism = () => {
+const Grossvalue = () => {
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [yearList, setYearList] = useState([]);
-  const [categoryList, setCategoryList] = useState([]);
   const [selectedYear, setSelectedYear] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
   const [chartData, setChartData] = useState({ categories: [], series: [] });
+  const [statisticsData, setStatisticsData] = useState([]);
+  const [statisticsCards, setStatisticsCards] = useState([]);
 
   useEffect(() => {
+    setLoading(true);
     domo
       .get("/data/v1/tourism_satellite")
       .then((response) => {
+        setLoading(false);
         const filteredData = response.filter(
-          (item) => item.FLAG === "Domestic Tourism Expenditure",
+          (item) => item.FLAG === "Gross value added of Tourism",
         );
         const uniqueYears = [...new Set(filteredData.map((item) => item.Year))];
-        const uniqueCategories = [
-          ...new Set(
-            filteredData.map((item) => item.Category).filter((category) => category !== ""),
-          ),
-        ];
         setYearList(uniqueYears);
-        setCategoryList(uniqueCategories);
         setData(filteredData);
-        processChartData(filteredData, "", "");
+        processChartData(filteredData, "");
       })
       .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.log(err);
+      });
+
+    domo
+      .get("/data/v1/time_series")
+      .then((response) => {
+        setStatisticsData(response);
+        processStatisticsCards(response, "");
+      })
+      .catch((err) => {
+        // eslint-disable-next-line no-console
         console.log(err);
       });
   }, []);
 
-  const processChartData = (data, year, category) => {
+  const processChartData = (data, year) => {
     let filteredData = data;
     if (year) {
       filteredData = filteredData.filter((item) => item.Year === parseInt(year));
-    }
-    if (category) {
-      filteredData = filteredData.filter((item) => item.Category === category);
     }
 
     const dataByProduct = filteredData.reduce((acc, item) => {
@@ -74,16 +80,35 @@ const DomesticTourism = () => {
     });
   };
 
+  const processStatisticsCards = (data, year) => {
+    let filteredData = data;
+    if (year) {
+      filteredData = filteredData.filter((item) => item.Year === parseInt(year));
+    }
+
+    const statisticsByType = filteredData.reduce((acc, item) => {
+      const type = item["Time Series of key Statistics"];
+      const value = item["Value(M)"];
+      if (!acc[type]) {
+        acc[type] = 0;
+      }
+      acc[type] += value;
+      return acc;
+    }, {});
+
+    const cards = Object.entries(statisticsByType).map(([type, value]) => ({
+      type,
+      value,
+    }));
+
+    setStatisticsCards(cards);
+  };
+
   const handleYearChange = (e) => {
     const year = e.target.value;
     setSelectedYear(year);
-    processChartData(data, year, selectedCategory);
-  };
-
-  const handleCategoryChange = (e) => {
-    const category = e.target.value;
-    setSelectedCategory(category);
-    processChartData(data, selectedYear, category);
+    processChartData(data, year);
+    processStatisticsCards(statisticsData, year);
   };
 
   const options = {
@@ -99,16 +124,13 @@ const DomesticTourism = () => {
         horizontal: false,
       },
     },
-    colors: ["#FFBC2F"],
     xaxis: {
       categories: chartData.categories,
     },
     dataLabels: {
       enabled: false,
-      formatter: function (val) {
-        return `${val}%`;
-      },
     },
+    colors: ["#FFBC2F"],
     tooltip: {
       y: {
         formatter: (value) => `${value}%`,
@@ -131,16 +153,33 @@ const DomesticTourism = () => {
           <div>
             <h2 className="uppercase text-xl font-bold">tourism satellite account</h2>
             <h5 className="uppercase text-sm font-medium">
-              domestic tourism expenditure by products
+              Gross value Added in the Tourism Industry
             </h5>
           </div>
-          <div className="grid grid-cols-2 mt-6">
-            <div className="mt-6 ml-5">
-              <Chart options={options} series={series} type="bar" height="350px" />
+          <div className="grid grid-cols-2 mt-2 gap-6">
+            <div className="mt-10 ml-5">
+              {loading ? (
+                <div className="font-bold ml-2">Loading...</div>
+              ) : (
+                <Chart options={options} series={series} type="bar" height="350px" />
+              )}
             </div>
             <div>
-              <div className="max-w-sm mx-auto text-sm my-0 bg-white shadow-md rounded p-5">
-                <div className="flex flex-col">
+              <div className=" text-sm my-0 bg-white shadow-md rounded p-5">
+                <div className="grid grid-cols-2 gap-4 rounded">
+                  {statisticsCards.map((card, index) => (
+                    <div key={index} className="bg-white shadow-md rounded p-3 w-full text-sm">
+                      <div className="font-bold">{card.type}</div>
+                      <div className="text-xl mt-5">
+                        {new Intl.NumberFormat("en-US", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        }).format(card.value.toFixed(2))}{" "}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex flex-col mt-4">
                   <label className="font-bold mb-2">Year</label>
                   <select
                     id="year"
@@ -157,26 +196,9 @@ const DomesticTourism = () => {
                     ))}
                   </select>
                 </div>
-                <div className="flex flex-col mt-5">
-                  <label className="font-bold mb-2">Category</label>
-                  <select
-                    id="category"
-                    name="category"
-                    className="border border-gray-300 rounded p-2"
-                    value={selectedCategory}
-                    onChange={handleCategoryChange}
-                  >
-                    <option value="">Select Category</option>
-                    {categoryList.map((item, index) => (
-                      <option value={item} key={index}>
-                        {item}
-                      </option>
-                    ))}
-                  </select>
-                </div>
                 <Link
-                  to="/domestic-time-series"
-                  className="bg-[#0E6EC5] text-white mt-5 rounded p-2 mt-5 block w-fit"
+                  to="/gross-value-time"
+                  className="bg-[#0E6EC5] text-white mt-5 rounded p-2 block w-fit"
                 >
                   Time Series
                 </Link>
@@ -189,4 +211,4 @@ const DomesticTourism = () => {
   );
 };
 
-export default DomesticTourism;
+export default Grossvalue;
