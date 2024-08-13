@@ -7,7 +7,6 @@ import domo from "ryuu.js";
 import "./style.css";
 
 const CardPage = () => {
-
   // Function to handle navigation
   const handleNavigate = (url) => {
     domo.navigate(url, false);
@@ -43,15 +42,19 @@ const CardPage = () => {
                   </Link>
                 </div>
                 <p className="text-justify text-sm font-medium">
-                  Tourism Satellite Analysis involves the systematic assessment of tourism's economic
-                  impact, utilizing data to gauge its contributions to GDP, employment, and foreign
-                  exchange earnings. This method enables precise measurement and strategic planning
-                  for sustainable tourism development.
+                  Tourism Satellite Analysis involves the systematic assessment of tourism's
+                  economic impact, utilizing data to gauge its contributions to GDP, employment, and
+                  foreign exchange earnings. This method enables precise measurement and strategic
+                  planning for sustainable tourism development.
                 </p>
                 <button
                   type="button"
                   className="text-white bg-gradient-to-r from-yellow-500 to-orange-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                  onClick={() => handleNavigate('https://gwcteq-partner.domo.com/app-studio/1796944236/pages/2109403124')}
+                  onClick={() =>
+                    handleNavigate(
+                      "https://gwcteq-partner.domo.com/app-studio/1796944236/pages/2109403124",
+                    )
+                  }
                 >
                   Explore
                 </button>
@@ -74,7 +77,11 @@ const CardPage = () => {
                 <button
                   type="button"
                   className="text-white bg-gradient-to-r from-yellow-500 to-orange-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                  onClick={() => handleNavigate('https://gwcteq-partner.domo.com/app-studio/1796944236/pages/2055071573')}
+                  onClick={() =>
+                    handleNavigate(
+                      "https://gwcteq-partner.domo.com/app-studio/1796944236/pages/2055071573",
+                    )
+                  }
                 >
                   Explore
                 </button>
@@ -87,15 +94,19 @@ const CardPage = () => {
                   </h1>
                 </div>
                 <p className="text-justify text-sm font-medium">
-                  Analyzing Malaysia tourism statistics aids in understanding visitor trends, economic
-                  impact, and the effectiveness of marketing strategies. This data-driven approach
-                  assists in planning and improving tourism infrastructure and services to boost visitor
-                  satisfaction and industry growth.
+                  Analyzing Malaysia tourism statistics aids in understanding visitor trends,
+                  economic impact, and the effectiveness of marketing strategies. This data-driven
+                  approach assists in planning and improving tourism infrastructure and services to
+                  boost visitor satisfaction and industry growth.
                 </p>
                 <button
                   type="button"
                   className="text-white bg-gradient-to-r from-yellow-500 to-orange-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                  onClick={() => handleNavigate('https://gwcteq-partner.domo.com/app-studio/1796944236/pages/2133914494')}
+                  onClick={() =>
+                    handleNavigate(
+                      "https://gwcteq-partner.domo.com/app-studio/1796944236/pages/2133914494",
+                    )
+                  }
                 >
                   Explore
                 </button>
@@ -108,15 +119,20 @@ const CardPage = () => {
                   </h1>
                 </div>
                 <p className="text-justify text-sm font-medium">
-                  Analyzing Malaysia tourism statistics aids in understanding visitor trends, economic
-                  impact, and the effectiveness of marketing strategies. This data-driven approach
-                  assists in planning and improving tourism infrastructure and services to boost visitor
-                  satisfaction and industry growth.
+                  The Global and Tourism Performance analysis provides a comprehensive overview of
+                  the international and domestic tourism landscape. This assessment focuses on
+                  global trends, visitor demographics, and economic impact, enabling strategic
+                  insights for enhancing tourism policies, infrastructure, and overall performance
+                  on a global scale.
                 </p>
                 <button
                   type="button"
                   className="text-white bg-gradient-to-r from-yellow-500 to-orange-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                  onClick={() => handleNavigate('https://gwcteq-partner.domo.com/app-studio/180666776/pages/899556376')}
+                  onClick={() =>
+                    handleNavigate(
+                      "https://gwcteq-partner.domo.com/app-studio/180666776/pages/899556376",
+                    )
+                  }
                 >
                   Explore
                 </button>
