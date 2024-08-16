@@ -170,7 +170,7 @@ const Grossvalue = () => {
                   {statisticsCards.map((card, index) => (
                     <div key={index} className="bg-white shadow-md rounded p-3 w-full text-sm">
                       <div className="font-bold">{card.type}</div>
-                      <div className="text-xl mt-5">
+                      <div className="text-2xl font-bold mt-5">
                         {new Intl.NumberFormat("en-US", {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
