@@ -8,6 +8,7 @@ import Highcharts from "highcharts";
 import HighchartsMap from "highcharts/modules/map";
 // eslint-disable-next-line no-duplicate-imports
 import topojson from "highcharts/modules/map";
+import { GoArrowUpRight } from "react-icons/go";
 
 // Initialize the Highcharts map module
 HighchartsMap(Highcharts);
@@ -116,42 +117,52 @@ const DomesticTourismHomePage = () => {
             <h5 className="uppercase text-sm font-medium">snapshot performance 2022</h5>
           </div>
           <div id="container" className="w-[40%] bg-transparent"></div>
-          <Link to="/domestic-visitors" className="absolute top-[170px] right-1/4">
-            <div>
-              <div className="font-medium">Domestic visitors (Million)</div>
-              <div className="flex items-center">
-                <div className="font-bold">171.6</div>
-                <div className="flex items-center ml-3">
-                  <IoIosArrowRoundUp className="text-green-700" />
-                  <div className="text-medium">160.1%</div>
+          <div className="absolute -bottom-[100px] left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <Link to="/domestic-visitors" className="">
+              <div className="bg-white border border-[#EC7C30] shadow p-3 rounded mb-2">
+                <div className="font-medium flex items-start">
+                  Domestic visitors (Million)
+                  <GoArrowUpRight />
+                </div>
+                <div className="flex items-center">
+                  <div className="font-bold text-xl">171.6</div>
+                  <div className="flex items-center ml-3">
+                    <IoIosArrowRoundUp className="text-green-700" />
+                    <div className="font-bold">160.1%</div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </Link>
-          <Link to="/domestic-trips" className="absolute top-[260px] right-[100px]">
-            <div>
-              <div className="font-medium">Number of trips (Million)</div>
-              <div className="flex items-center">
-                <div className="font-bold">207.8</div>
-                <div className="flex items-center ml-3">
-                  <IoIosArrowRoundUp className="text-green-700" />
-                  <div className="text-medium">187.0%</div>
+            </Link>
+            <Link to="/domestic-trips" className="">
+              <div className="bg-white border border-[#EC7C30] shadow p-3 rounded mb-2">
+                <div className="font-medium flex items-start">
+                  Number of trips (Million) <GoArrowUpRight />
+                </div>
+                <div className="flex items-center">
+                  <div className="font-bold text-xl">207.8</div>
+                  <div className="flex items-center ml-3">
+                    <IoIosArrowRoundUp className="text-green-700" />
+                    <div className="font-bold">187.0%</div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </Link>
-          <Link to="/domestic-expend" className="absolute bottom-[100px] right-[250px]">
-            <div>
-              <div className="font-medium">Total Expenditure (Million)</div>
-              <div className="flex items-center">
-                <div className="font-bold">64.1</div>
-                <div className="flex items-center ml-3">
-                  <IoIosArrowRoundUp className="text-green-700" />
-                  <div className="text-medium">248.1%</div>
+            </Link>
+            <Link to="/domestic-expend" className="">
+              <div className="bg-white border border-[#EC7C30] shadow p-3 rounded">
+                <div className="font-medium flex items-start">
+                  Total Expenditure (Million)
+                  <GoArrowUpRight />
+                </div>
+                <div className="flex items-center">
+                  <div className="font-bold text-xl">64.1</div>
+                  <div className="flex items-center ml-3">
+                    <IoIosArrowRoundUp className="text-green-700" />
+                    <div className="font-bold">248.1%</div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </Link>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
