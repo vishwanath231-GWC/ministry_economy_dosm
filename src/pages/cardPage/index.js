@@ -1,4 +1,5 @@
 import React from "react";
+import Logo from "../../assets/images/logo.png";
 import { Link } from "react-router-dom";
 import { CgPerformance } from "react-icons/cg";
 import { IoCameraOutline } from "react-icons/io5";
@@ -16,22 +17,10 @@ const CardPage = () => {
     <div>
       <div className="about-background">
         <div className="max-w-screen-xl mx-auto my-0 py-4 px-2">
-          <b className="gradient-text text-6xl w-10 mt-20">
-            MALAYSIA <br /> TOURISM
-          </b>
+          <img src={Logo} alt="Logo" className="large-logo mb-10" />
+          <b className="gradient-text text-3xl mt-10">MALAYSIA TOURISM DASHBOARD</b>
           <div className="grid grid-cols-4 gap-4 mt-2 mr-5">
-            <div className="col-span-1">
-              <div className="bg-red-700 w-24 h-2 border-b-0 border-red-900 mt-9"></div>
-              <div className="text-sm mt-11 text-justify font-medium">
-                <p>
-                  Malaysia, a vibrant Southeast Asian nation, offers an array of attractions ranging
-                  from pristine beaches and lush rainforests to bustling cities and cultural
-                  landmarks. Its rich cultural heritage, delectable cuisine, and hospitable locals
-                  make it a captivating destination for travelers worldwide.
-                </p>
-              </div>
-            </div>
-            <div className="col-span-3 gap-2 grid grid-cols-2 mt-14">
+            <div className="col-span-3 gap-2 grid grid-cols-2 ">
               <div className="border-b-0 bg-white p-4 rounded-lg">
                 <div className="mb-2">
                   <LuPlane className="mr-2 text-4xl text-[#FFBC2F]" />

@@ -183,7 +183,7 @@ const KeyMetric = () => {
       <div className="key_metric_bg">
         <div className="max-w-screen-xl mx-auto my-0 py-6 px-5">
           <div className="mb-6">
-            <Navigation backLink="/card" />
+            <Navigation backLink="/" />
           </div>
           <div>
             <h2 className="uppercase text-xl font-bold">tourism satellite account</h2>
