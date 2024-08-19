@@ -1,6 +1,5 @@
 import React from "react";
 import { HashRouter, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/homepage";
 import CardPage from "./pages/cardPage";
 import KeyMetric from "./pages/TOURISM_SATELLITE_ACCOUNT/keyMetric";
 import InboundTourisom from "./pages/TOURISM_SATELLITE_ACCOUNT/Inbound_tourism";
@@ -22,8 +21,7 @@ const App = () => {
   return (
     <HashRouter>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/card" element={<CardPage />} />
+        <Route path="/" element={<CardPage />} />
         <Route path="/key-metric" element={<KeyMetric />} />
         <Route path="/inbound-tourisom" element={<InboundTourisom />} />
         <Route path="/inbound-time-series" element={<InboundTimeSeries />} />

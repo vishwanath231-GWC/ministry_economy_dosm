@@ -110,7 +110,7 @@ const DomesticTourismHomePage = () => {
       <div className="domestic_bg">
         <div className="max-w-screen-xl mx-auto my-0 h-screen py-6 px-5 relative">
           <div className="mb-6">
-            <Navigation backLink="/card" />
+            <Navigation backLink="/" />
           </div>
           <div>
             <h2 className="uppercase text-xl font-bold">domestic tourism statistics </h2>
